@@ -6,10 +6,11 @@ run:
 	./bin/main
 
 build:
+	@go mod tidy
 	CGO_ENABLED=0 go build -o bin/main cmd/main.go 
 
 bin-deps:
-	mkdir -p bin
+	@mkdir -p bin
 	GOBIN=$(LOCAL_BIN) go install github.com/pressly/goose/v3/cmd/goose@v3.5.3
 
 db\:up:
@@ -20,3 +21,6 @@ db\:down:
 
 db\:create:
 	$(LOCAL_BIN)/goose -dir migrations create "$(NAME)" sql
+
+swag:
+	swag init -g cmd/main.go

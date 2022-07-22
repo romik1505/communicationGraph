@@ -1,0 +1,72 @@
+basePath: /
+definitions:
+  mapper.JournalRecord:
+    properties:
+      source_id:
+        type: string
+      target_id:
+        type: string
+      time:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is user communication service.
+  title: Communication Graph
+  version: "1.0"
+paths:
+  /graph:
+    get:
+      consumes:
+      - application/json
+      description: return graph nodes links
+      operationId: graph
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: status
+          schema:
+            $ref: '#/definitions/mapper.JournalRecord'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Graph
+      tags:
+      - graph
+  /record:
+    post:
+      consumes:
+      - application/json
+      description: add new communication node
+      operationId: record
+      parameters:
+      - description: account info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/mapper.JournalRecord'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Record
+      tags:
+      - record
+swagger: "2.0"
